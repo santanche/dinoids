@@ -12,7 +12,6 @@
 <script type="text/javascript" xlink:href="dinoid.js"/>
 <script type="text/javascript" xlink:href="world.js"/>
 
-<!--
 <script type="text/javascript">
   <![CDATA[
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -24,7 +23,6 @@
   ga('send', 'pageview');
   ]]>
 </script>
--->
 
 <def>
   <pattern id="Grid" width="0.05" height="0.05">
