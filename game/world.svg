@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="world.css" type="text/css"?>
+
+<svg version="1.1"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1024" height="768"
+     onload="startWorld()"
+     onkeypress="commandAdd()">
+     
+<script type="text/javascript" xlink:href="space.js"/>
+<script type="text/javascript" xlink:href="dinoid.js"/>
+<script type="text/javascript" xlink:href="world.js"/>
+
+<script type="text/javascript">
+  <![CDATA[
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-8348928-9', 'santanche.github.io');
+  ga('send', 'pageview');
+  ]]>
+</script>
+
+<def>
+  <pattern id="Grid" width="0.05" height="0.05">
+    <rect width="25" height="25" style="fill:rgb(255,255,200);stroke-width:2;stroke:rgb(100,100,100)" />
+  </pattern> 
+</def>
+
+<rect fill="url(#Grid)" x="0" y="0" width="500" height="500" />
+
+<g id="dinoArea" />
+
+<g transform="translate(520, 20)">
+  <g class="clickable" onclick="bomb()" transform="translate(240, 0)">
+     <rect x="0" y="0" width="40" height="40" fill="#800000" />
+     <text x="7" y="52" font-size="64" font-family="Arial" fill="#FFFFFF"> * </text>
+  </g>
+  <rect x="0" y="45" width="300" height="50" rx="10" ry="10"
+        fill="white" stroke-width="2" stroke="#000080"/>
+  <text id="command" x="10" y="80" width="300" height="50" font-size="32" font-family="Arial"></text>
+</g>
+
+<g transform="translate(520, 100)">
+  <text x="0" y="50" font-size="32" font-family="Arial" fill="#000080">LOG</text>
+  <rect x="0" y="55" width="300" height="340" rx="10" ry="10"
+        fill="white" stroke-width="2" stroke="#000080"/>
+  <text x="10" y="90" width="300" height="200" font-size="16" font-family="Arial">
+     <tspan x="5" y="80"  id="l1"></tspan>
+     <tspan x="5" y="100" id="l2"></tspan>
+     <tspan x="5" y="120" id="l3"></tspan>
+     <tspan x="5" y="140" id="l4"></tspan>
+     <tspan x="5" y="160" id="l5"></tspan>
+     <tspan x="5" y="180" id="l6"></tspan>
+     <tspan x="5" y="200" id="l7"></tspan>
+     <tspan x="5" y="220" id="l8"></tspan>
+     <tspan x="5" y="240" id="l9"></tspan>
+     <tspan x="5" y="260" id="l10"></tspan>
+     <tspan x="5" y="280" id="l11"></tspan>
+     <tspan x="5" y="300" id="l12"></tspan>
+     <tspan x="5" y="320" id="l13"></tspan>
+     <tspan x="5" y="340" id="l14"></tspan>
+     <tspan x="5" y="360" id="l15"></tspan>
+     <tspan x="5" y="380" id="l16"></tspan>
+  </text>
+</g>
+
+<g transform="translate(520, 100)">
+  <g class="clickable" onclick="startStop()" transform="translate(100, 0)">
+     <rect id="bPlay" x="0" y="20" width="80" height="30" fill="#800000" />
+     <text x="5" y="45" font-size="32" font-family="Arial" fill="#FFFFFF"> Play </text>
+  </g>
+  <g  class="clickable" onclick="allMove()" transform="translate(200, 0)">
+     <rect id="bStop" x="0" y="20" width="80" height="30" fill="#AAAAAA" />
+     <text x="5" y="45" font-size="32" font-family="Arial" fill="#FFFFFF"> Step </text>
+  </g>
+</g>
+ 
+
+</svg>
