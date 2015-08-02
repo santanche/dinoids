@@ -1,51 +1,54 @@
-var gameStatus = 't';
+var gameStatus = 's';
 
-var theDinoid = null;
 var dinoArea;
 
-var commandSvg = null;
-var commandSeq = new Command();
+var dinoMatrix;
+var limitX = 20,
+    limitY = 20;
+var dinoList;
 
 var logSvg = null;
 var logId = 0;
+var nextLogId = 1;
+
+var thread;
+
+var totalDinoids = 10;
+var mainDinoid = null;
+
+var gameStep = 0;
 
 function startWorld() {
    dinoArea = document.querySelector("#dinoArea");
-   theDinoid = new Dinoid(dinoArea, 1, 1, 10, 10);
-   new VisualDinoid(theDinoid);
-   theDinoid.randomPosition();
-   
-   var commandBox = document.querySelector("#command");
-   commandSvg = document.createTextNode("");
-   commandBox.appendChild(commandSvg);
+   dinoMatrix = new Space(limitX, limitY);
+   dinoList = [];
 
+   for (d = 1; d <= totalDinoids; d++) {
+      var theDinoid = new Dinoid(dinoArea, 1, 1, limitX, limitY);
+      new VisualDinoid(theDinoid);
+      var colision = true;
+      while (colision) {
+         theDinoid.randomPosition();
+         var position = theDinoid.getPosition();
+         if (dinoMatrix.get(position.x, position.y) === null) {
+            dinoMatrix.set(position.x, position.y, theDinoid);
+            colision = false;
+         }
+      }
+      this.dinoList.push(theDinoid);
+      if (mainDinoid === null)
+         mainDinoid = theDinoid;
+   }
+   
    logSvg = document.querySelector("#log");
 }
 
-function addInstr(instr) {
-   if (instr === '*') {
-      addLog(commandSeq);
-      if (gameStatus === 't')
-         theDinoid.moveSeq(commandSeq);
-      else
-         theDinoid.moveSeqS(commandSeq);
-      commandSvg.nodeValue = "";
-      commandSeq.clear();
-      
-      // var positionL = theDinoid.getPosition();
-      // var positionR = theRobesberto.getPosition();
-      // if (positionL.x === positionR.x && positionL.y === positionR.y)
-      //   logLine("*** You found Robesberto in " + logId + " movements", logId + 1);
-   } else {
-      commandSvg.nodeValue += instr;
-      commandSeq.addInstr(instr);
-   }
-}
-
-function addLog(commandSeq) {
-   logId++;
+function addLog(str) {
+   logId = nextLogId;
+   nextLogId = nextLogId % 16 + 1;
    
-   logLine((logId + ": " + commandSeq.returnSeq()), logId);
+   logLine(str, logId);
+   deleteLine(nextLogId);
 }
 
 function logLine(str, line) {
@@ -54,30 +57,69 @@ function logLine(str, line) {
    logBox.appendChild(logText);
 }
 
-function restart(type) {
-   var bTest = document.querySelector("#bTest");
+function deleteLine(line) {
+   var logBox = document.querySelector("#l" + line);
+   if (logBox != null && logBox.firstChild && logBox.firstChild != null)
+      logBox.removeChild(logBox.firstChild);
+}
+
+function startStop() {
    var bPlay = document.querySelector("#bPlay");
-   if (type === 't') {
-      gameStatus = 't';
-      bTest.setAttribute("fill", "#800000");
-      bPlay.setAttribute("fill", "#AAAAAA");
-   } else {
+   if (gameStatus === 's') {
       gameStatus = 'p';
-      theDinoid.scramble();
-      bTest.setAttribute("fill", "#AAAAAA");
       bPlay.setAttribute("fill", "#800000");
+      playing();
+   } else {
+      gameStatus = 's';
+      bPlay.setAttribute("fill", "#AAAAAA");
+      clearTimeout(thread);
    }
+}
+
+function playing() {
+   thread = setTimeout("playing()", 100);
+   gameStep++;
+   addLog("Step: " + gameStep);
+   checkEnd();
+   
+   allMove();
+}
+
+function allMove() {
+   for (dino in dinoList)
+      dinoList[dino].move();
+}
+
+function bomb() {
+   gameStep += 100;
    cleanup();
+   addLog("*** Bomb -- Step: " + gameStep);
+   for (d = 0; d < totalDinoids; d++)
+      if (Math.random() < 0.3)
+         dinoList[d].direction = Math.floor(Math.random()*8)+1;
 }
 
 function cleanup() {
-   theDinoid.randomPosition();
    logId = 0;
+   nextLogId = 1;
    
    var l;
-   for (l = 1; l <= 14; l++) {
+   for (l = 1; l <= 16; l++) {
       var logBox = document.querySelector("#l"+l);
       if (logBox != null && logBox.firstChild && logBox.firstChild != null)
          logBox.removeChild(logBox.firstChild);
    }
+}
+
+function checkEnd() {
+   var dir = dinoList[0].direction;
+   var t = 1;
+   for (d = 1; d < totalDinoids; d++)
+      if (dir === dinoList[d].direction) t++;
+   if (t === 10) {
+      clearTimeout(thread);
+      cleanup();
+      addLog("*** Terminou -- Step: " + gameStep);
+   }
+      
 }

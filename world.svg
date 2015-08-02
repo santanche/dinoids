@@ -8,7 +8,7 @@
      onload="startWorld()"
      onkeypress="commandAdd()">
      
-<script type="text/javascript" xlink:href="command.js"/>
+<script type="text/javascript" xlink:href="space.js"/>
 <script type="text/javascript" xlink:href="dinoid.js"/>
 <script type="text/javascript" xlink:href="world.js"/>
 
@@ -37,23 +37,7 @@
 <g id="dinoArea" />
 
 <g transform="translate(520, 20)">
-  <g class="clickable" onclick="addInstr('&lt;')">
-     <rect x="0" y="0" width="40" height="40" fill="#000080" />
-     <text x="0" y="45" font-size="64" font-family="Arial" fill="#FFFFFF"> &lt; </text>
-  </g>
-  <g class="clickable" onclick="addInstr('^')" transform="translate(60, 0)">
-     <rect x="0" y="0" width="40" height="40" fill="#000080" />
-     <text x="5" y="50" font-size="64" font-family="Arial" fill="#FFFFFF"> ^ </text>
-  </g>
-  <g class="clickable" onclick="addInstr('v')" transform="translate(120, 0)">
-     <rect x="0" y="0" width="40" height="40" fill="#000080" />
-     <text x="5" y="35" font-size="64" font-family="Arial" fill="#FFFFFF"> v </text>
-  </g>
-  <g class="clickable" onclick="addInstr('&gt;')" transform="translate(180, 0)">
-     <rect x="0" y="0" width="40" height="40" fill="#000080" />
-     <text x="0" y="45" font-size="64" font-family="Arial" fill="#FFFFFF"> &gt; </text>
-  </g>
-  <g class="clickable" onclick="addInstr('*')" transform="translate(240, 0)">
+  <g class="clickable" onclick="bomb()" transform="translate(240, 0)">
      <rect x="0" y="0" width="40" height="40" fill="#800000" />
      <text x="7" y="52" font-size="64" font-family="Arial" fill="#FFFFFF"> * </text>
   </g>
@@ -64,7 +48,7 @@
 
 <g transform="translate(520, 100)">
   <text x="0" y="50" font-size="32" font-family="Arial" fill="#000080">LOG</text>
-  <rect x="0" y="55" width="300" height="300" rx="10" ry="10"
+  <rect x="0" y="55" width="300" height="340" rx="10" ry="10"
         fill="white" stroke-width="2" stroke="#000080"/>
   <text x="10" y="90" width="300" height="200" font-size="16" font-family="Arial">
      <tspan x="5" y="80"  id="l1"></tspan>
@@ -81,25 +65,21 @@
      <tspan x="5" y="300" id="l12"></tspan>
      <tspan x="5" y="320" id="l13"></tspan>
      <tspan x="5" y="340" id="l14"></tspan>
+     <tspan x="5" y="360" id="l15"></tspan>
+     <tspan x="5" y="380" id="l16"></tspan>
   </text>
 </g>
 
 <g transform="translate(520, 100)">
-  <g class="clickable" onclick="restart('t')" transform="translate(100, 0)">
-     <rect id="bTest" x="0" y="20" width="80" height="30" fill="#800000" />
-     <text x="5" y="45" font-size="32" font-family="Arial" fill="#FFFFFF"> Train </text>
-  </g>
-  <g  class="clickable" onclick="restart('p')" transform="translate(200, 0)">
-     <rect id="bPlay" x="0" y="20" width="80" height="30" fill="#AAAAAA" />
+  <g class="clickable" onclick="startStop()" transform="translate(100, 0)">
+     <rect id="bPlay" x="0" y="20" width="80" height="30" fill="#800000" />
      <text x="5" y="45" font-size="32" font-family="Arial" fill="#FFFFFF"> Play </text>
   </g>
+  <g  class="clickable" onclick="allMove()" transform="translate(200, 0)">
+     <rect id="bStop" x="0" y="20" width="80" height="30" fill="#AAAAAA" />
+     <text x="5" y="45" font-size="32" font-family="Arial" fill="#FFFFFF"> Step </text>
+  </g>
 </g>
-
-<a xlink:href="story/dinoid-story.html" target="_blank">
-   <g transform="translate(520, 450)">
-     <rect id="bTest" x="0" y="20" width="80" height="30" fill="#000080" />
-     <text x="5" y="45" font-size="32" font-family="Arial" fill="#FFFFFF"> Story </text>
-   </g>
-</a>   
+ 
 
 </svg>
